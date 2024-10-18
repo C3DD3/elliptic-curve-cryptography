@@ -50,7 +50,7 @@ class FileEncryptionWithECC:
         self.ephemeral_point = None  # Ephemeral point'i başlangıçta None olarak tanımla
 
     def encrypt_file(self, file_path, public_key):
-        with open(r"C:\Users\Eyup\Desktop\Python Mini Projeler\eliptikSifreleme\eliptik sifreleme demo.txt", 'rb') as file:
+        with open(r"FİLE PATH\eliptik sifreleme demo.txt", 'rb') as file:
             plaintext = file.read()
 
         scalar = random.randint(1, self.curve.p - 1)
@@ -81,7 +81,7 @@ def start_server(host, port, file_encryptor):
     file_path = "sample.txt"
     public_key = (5, 1)  # Example public key
 
-    encrypted_data, ephemeral_point = file_encryptor.encrypt_file(r"C:\Users\Eyup\Desktop\Python Mini Projeler\eliptikSifreleme\eliptik sifreleme demo.txt", public_key)
+    encrypted_data, ephemeral_point = file_encryptor.encrypt_file(r"FİLE PATH\eliptik sifreleme demo.txt", public_key)
 
     file_size = len(encrypted_data)
     client_socket.sendall(file_size.to_bytes(8, byteorder='big'))
@@ -115,12 +115,12 @@ def main():
     file_encryptor = FileEncryptionWithECC(curve)
 
     # Server
-    server_host = "127.0.0.1"
+    server_host = ""
     server_port = 12345
     start_server(server_host, server_port, file_encryptor)
 
     # Client
-    client_host = "127.0.0.1"
+    client_host = ""
     client_port = 12345
     private_key, public_key = generate_key_pair(curve)
     start_client(client_host, client_port, file_encryptor, private_key)
